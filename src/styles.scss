@@ -1,0 +1,173 @@
+// ── Variables ──────────────────────────────────────────────────────────────────
+:root {
+  // Backgrounds (Mario sky palette)
+  --bg:          #6898F0;
+  --bg-card:     #FFFEF0;
+  --bg-elevated: #EAE6D8;
+
+  // Color accents (SNES Mario World palette)
+  --cyan:        #3858F0;   // Deep blue
+  --magenta:     #D020A0;   // Fuchsia
+  --yellow:      #F8C020;   // Coin gold
+  --red:         #E83020;   // Mario red
+  --green:       #18A018;   // Pipe green
+  --orange:      #C84800;   // Brick/goomba
+  --white:       #181008;   // Dark text (main foreground)
+  --muted:       #8888A0;   // Muted
+  --dark:        #181008;   // Near-black
+
+  // Fonts
+  --font-pixel:  'Press Start 2P', cursive;
+  --font-hud:    'VT323', monospace;
+  --font-mono:   'VT323', monospace;
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: var(--font-hud);
+  overflow-x: hidden;
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+.neon-cyan    { color: var(--cyan); }
+.neon-magenta { color: var(--magenta); }
+.neon-yellow  { color: var(--yellow); }
+.neon-green   { color: var(--green); }
+.neon-red     { color: var(--red); }
+.neon-text    { color: var(--cyan); }
+
+.pixel-shadow   { box-shadow: 4px 4px 0 var(--dark); }
+.pixel-border   { border: 3px solid var(--dark); }
+
+// ── Pixel Cloud Background (replaces scanlines) ───────────────────────────────
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  // Pixel clouds via layered radial gradients
+  background-image:
+    // Cloud 1 – top left
+    radial-gradient(ellipse 64px 28px at  10%  20%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    radial-gradient(ellipse 40px 22px at  16%  17%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    radial-gradient(ellipse 32px 20px at   6%  23%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    // Cloud 2 – top center
+    radial-gradient(ellipse 72px 26px at  52%  10%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    radial-gradient(ellipse 48px 22px at  59%   8%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    // Cloud 3 – top right
+    radial-gradient(ellipse 60px 24px at  84%  18%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    radial-gradient(ellipse 36px 20px at  90%  15%, rgba(255,255,255,.80) 0%, rgba(255,255,255,.80) 60%, transparent 61%),
+    // Cloud 4 – lower left (faded)
+    radial-gradient(ellipse 50px 22px at  22%  72%, rgba(255,255,255,.45) 0%, rgba(255,255,255,.45) 60%, transparent 61%),
+    radial-gradient(ellipse 34px 18px at  28%  69%, rgba(255,255,255,.45) 0%, rgba(255,255,255,.45) 60%, transparent 61%),
+    // Cloud 5 – lower right (faded)
+    radial-gradient(ellipse 62px 22px at  74%  82%, rgba(255,255,255,.45) 0%, rgba(255,255,255,.45) 60%, transparent 61%),
+    radial-gradient(ellipse 40px 18px at  80%  79%, rgba(255,255,255,.45) 0%, rgba(255,255,255,.45) 60%, transparent 61%);
+}
+
+// ── Keyframe animations ───────────────────────────────────────────────────────
+@keyframes pixel-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes pixel-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.04); }
+}
+
+@keyframes coin-spin {
+  0%, 100% { transform: scaleX(1); }
+  40%, 60% { transform: scaleX(.1); }
+}
+
+// Keep for streak/combo animations
+@keyframes neon-pulse {
+  0%, 100% { transform: scale(1); letter-spacing: .1em; }
+  50%       { transform: scale(1.05); letter-spacing: .14em; }
+}
+
+@keyframes neon-pulse-magenta {
+  0%, 100% { color: var(--magenta); }
+  50%       { color: #FF40D8; }
+}
+
+@keyframes border-glow {
+  0%, 100% { box-shadow: 4px 4px 0 var(--dark); }
+  50%       { box-shadow: 6px 6px 0 var(--dark); }
+}
+
+@keyframes glitch-main {
+  0%  { transform: translateX(0); }
+  25% { transform: translateX(3px) skewX(1deg); }
+  50% { transform: translateX(-3px) skewX(-1deg); }
+  75% { transform: translateX(2px); }
+  100%{ transform: translateX(0); }
+}
+@keyframes glitch-before {
+  0%  { transform: translateX(-3px); }
+  50% { transform: translateX(4px); }
+  100%{ transform: translateX(-3px); }
+}
+@keyframes glitch-after {
+  0%  { transform: translateX(3px); }
+  50% { transform: translateX(-4px); }
+  100%{ transform: translateX(3px); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(.6); }
+  70%  { transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}
+
+@keyframes level-up-banner {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px) scale(.85); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.05); }
+  80%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-14px) scale(.9); }
+}
+
+@keyframes feedback-pop {
+  0%   { opacity: 0; transform: scale(.4); }
+  50%  { opacity: 1; transform: scale(1.1); }
+  75%  { transform: scale(.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+@keyframes xp-fill {
+  from { width: 0; }
+}

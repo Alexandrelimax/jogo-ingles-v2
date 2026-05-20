@@ -1,0 +1,43 @@
+<div class="game-over">
+  <div class="scanlines"></div>
+
+  <div class="game-over__title" data-text="GAME OVER">GAME OVER</div>
+
+  <div class="game-over__stats">
+    <div class="stat-card">
+      <span class="stat-card__label">SCORE</span>
+      <span class="stat-card__value neon-cyan">{{ gs.score() }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__label">LEVEL</span>
+      <span class="stat-card__value neon-magenta">{{ gs.level() }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__label">ACCURACY</span>
+      <span class="stat-card__value neon-yellow">{{ gs.accuracy() }}%</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card__label">BEST STREAK</span>
+      <span class="stat-card__value neon-cyan">{{ gs.streak() }}</span>
+    </div>
+  </div>
+
+  @if (highScores.length > 0) {
+    <div class="game-over__leaderboard">
+      <h3 class="leaderboard__title">// HIGH SCORES</h3>
+      <ol class="leaderboard__list">
+        @for (entry of highScores; track $index) {
+          <li class="leaderboard__entry" [class.current]="$index + 1 === rank">
+            <span class="pos">#{{ $index + 1 }}</span>
+            <span class="score neon-cyan">{{ entry.score }}</span>
+            <span class="meta">LVL {{ entry.level }} · {{ entry.accuracy }}% acc · {{ entry.date }}</span>
+          </li>
+        }
+      </ol>
+    </div>
+  }
+
+  <button class="game-over__btn" (click)="onRestart()">
+    [ TENTAR NOVAMENTE ]
+  </button>
+</div>

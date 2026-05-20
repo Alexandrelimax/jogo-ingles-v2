@@ -1,0 +1,12 @@
+<div class="question-card">
+  <div class="question-card__meta">
+    <span class="category-badge">{{ question().category }}</span>
+    <span class="difficulty-badge" [attr.data-level]="question().difficulty">
+      @for (_ of difficultyStars(); track $index) {
+        ★
+      }
+    </span>
+  </div>
+
+  <p class="question-card__text">{{ question().question }}</p>
+</div>

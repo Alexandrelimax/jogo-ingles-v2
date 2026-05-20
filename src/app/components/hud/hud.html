@@ -1,0 +1,62 @@
+<div class="hud">
+  <div class="hud__left">
+    <div class="hud__score">
+      <span class="hud__label">SCORE</span>
+      <span class="hud__value neon-cyan">{{ gs.score() }}</span>
+    </div>
+    <div class="hud__level">
+      <span class="hud__label">NÍVEL {{ gs.level() }}</span>
+      <div class="hud__xp-row">
+        <div class="xp-bar">
+          <div class="xp-bar__fill" [style.width.%]="gs.xpProgress()"></div>
+        </div>
+        <span class="hud__xp-tag">XP</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hud__center">
+    @if (timerEnabled) {
+      <div class="hud__timer" [class]="timerClass">
+        <svg class="timer-ring" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="20" class="ring-bg"/>
+          <circle cx="24" cy="24" r="20" class="ring-fill"
+            [style.stroke-dashoffset]="125.66 - (125.66 * timerPercent / 100)"/>
+        </svg>
+        <span class="timer-value">{{ gs.timeRemaining() }}</span>
+      </div>
+    } @else {
+      <div class="hud__mode-badge">
+        {{ gs.currentMode()?.icon }}
+      </div>
+    }
+
+    @if (gs.streak() >= 3) {
+      <div class="hud__streak">
+        🔥 {{ gs.streak() }} STREAK
+        @if (multiplierLabel) {
+          <span class="multiplier">{{ multiplierLabel }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="hud__right">
+    <div class="hud__lives-section">
+      <span class="hud__label">VIDAS</span>
+      <div class="hud__lives">
+        @if ((gs.currentMode()?.lives ?? 5) >= 999) {
+          <span class="life-inf">∞</span>
+        } @else {
+          @for (i of hearts; track i) {
+            <span class="life-pip" [class.lost]="i >= gs.lives()">♥</span>
+          }
+        }
+      </div>
+    </div>
+    <div class="hud__accuracy">
+      <span class="hud__label">ACERTOS</span>
+      <span class="hud__value neon-magenta">{{ gs.accuracy() }}%</span>
+    </div>
+  </div>
+</div>

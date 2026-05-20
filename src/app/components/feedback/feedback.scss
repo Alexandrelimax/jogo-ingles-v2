@@ -1,0 +1,88 @@
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 500;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    padding: 1.4rem 2.2rem;
+    border-radius: 4px;
+    border: 3px solid var(--dark);
+    animation: feedback-pop .3s cubic-bezier(.35,0,.25,1) both;
+  }
+
+  &__icon {
+    font-size: 2.8rem;
+    line-height: 1;
+  }
+
+  &__label {
+    font-family: var(--font-pixel);
+    font-size: .65rem;
+    letter-spacing: .1em;
+  }
+
+  &__explanation {
+    font-family: var(--font-hud);
+    font-size: 1.05rem;
+    text-align: center;
+    max-width: 260px;
+    line-height: 1.5;
+    margin: .25rem 0 0;
+    opacity: .9;
+    border-top: 2px solid rgba(0,0,0,.1);
+    padding-top: .4rem;
+  }
+
+  &__streak-msg {
+    font-family: var(--font-pixel);
+    font-size: clamp(.5rem, 1.6vw, .65rem);
+    letter-spacing: .1em;
+    animation: neon-pulse .9s ease-in-out infinite;
+  }
+
+  &__combo {
+    font-family: var(--font-hud);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    animation: coin-spin .6s ease-in-out infinite;
+  }
+
+  &.correct {
+    .feedback-overlay__content {
+      background: var(--green);
+      box-shadow: 6px 6px 0 rgba(0,80,0,.5);
+      color: #FFFEF0;
+    }
+    .feedback-overlay__streak-msg { color: var(--yellow); }
+    .feedback-overlay__combo      { color: var(--yellow); }
+    .feedback-overlay__explanation { color: rgba(255,254,240,.9); border-color: rgba(255,254,240,.2); }
+  }
+
+  &.wrong {
+    .feedback-overlay__content {
+      background: var(--red);
+      box-shadow: 6px 6px 0 rgba(100,0,0,.5);
+      color: #FFFEF0;
+    }
+    .feedback-overlay__explanation { color: rgba(255,254,240,.9); border-color: rgba(255,254,240,.2); }
+  }
+
+  &.timeout {
+    .feedback-overlay__content {
+      background: var(--yellow);
+      box-shadow: 6px 6px 0 rgba(100,80,0,.5);
+      color: var(--dark);
+    }
+    .feedback-overlay__label { color: var(--dark); }
+    .feedback-overlay__explanation { color: rgba(24,16,8,.85); border-color: rgba(24,16,8,.15); }
+  }
+}

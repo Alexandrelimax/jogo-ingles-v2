@@ -1,0 +1,92 @@
+.game {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    &.shake {
+      animation: shake .4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+  }
+
+  &__arena {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 1.25rem 1rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__quit-btn {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 200;
+    background: rgba(255,254,240,.85);
+    border: 2px solid var(--dark);
+    color: var(--dark);
+    font-family: var(--font-pixel);
+    font-size: .45rem;
+    padding: .45rem .9rem;
+    cursor: pointer;
+    border-radius: 3px;
+    letter-spacing: .1em;
+    box-shadow: 3px 3px 0 var(--dark);
+    transition: background .15s, transform .1s, box-shadow .1s;
+
+    &:hover {
+      background: var(--red);
+      color: #FFFEF0;
+      border-color: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0 var(--dark);
+    }
+    &:active {
+      transform: translateY(2px);
+      box-shadow: 1px 1px 0 var(--dark);
+    }
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-family: var(--font-pixel);
+    font-size: .7rem;
+    color: rgba(255,255,255,.8);
+    text-shadow: 2px 2px 0 rgba(0,0,0,.3);
+    animation: blink .8s step-start infinite;
+  }
+}
+
+.level-up-banner {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  z-index: 200;
+  font-family: var(--font-pixel);
+  font-size: clamp(.5rem, 1.8vw, .72rem);
+  color: #FFFEF0;
+  text-shadow: 2px 2px 0 rgba(0,0,0,.4);
+  background: var(--yellow);
+  border: 3px solid var(--dark);
+  padding: .6rem 1.4rem;
+  border-radius: 3px;
+  letter-spacing: .1em;
+  box-shadow: 4px 4px 0 var(--dark);
+  animation: level-up-banner 2.5s ease both;
+  pointer-events: none;
+  white-space: nowrap;
+}

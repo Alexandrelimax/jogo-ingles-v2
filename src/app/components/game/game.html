@@ -1,0 +1,32 @@
+<div class="game">
+  <div class="scanlines"></div>
+
+  <div class="game__inner" [class.shake]="gs.feedbackState() === 'wrong' || gs.feedbackState() === 'timeout'">
+    <app-hud />
+
+    @if (gs.isLevelUp()) {
+      <div class="level-up-banner">
+        ⬆ LEVEL UP — LVL {{ gs.level() }} ⬆
+      </div>
+    }
+
+    <div class="game__arena">
+      @if (currentQuestion) {
+        <app-question [question]="currentQuestion" [questionIndex]="questionIndex" />
+        <app-answers
+          [options]="currentQuestion.options"
+          [locked]="isLocked"
+          [correctAnswer]="currentQuestion.answer"
+          (answerSelected)="onAnswerSelected($event)" />
+      } @else {
+        <div class="game__loading">
+          <span class="loading-dots">CARREGANDO</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <app-feedback />
+
+  <button class="game__quit-btn" (click)="quit()">✕ SAIR</button>
+</div>

@@ -1,0 +1,104 @@
+<div class="mode-select">
+  <div class="scanlines"></div>
+
+  <header class="mode-select__header">
+    <h1 class="mode-select__title">SELECT MODE</h1>
+    <p class="mode-select__sub">— ESCOLHA SEU DESAFIO —</p>
+  </header>
+
+  <div class="mode-select__grid">
+    @for (mode of modes; track mode.id) {
+      <button
+        class="mode-card"
+        [attr.data-mode]="mode.id"
+        [class.hovered]="hoveredId === mode.id"
+        (mouseenter)="hoveredId = mode.id"
+        (mouseleave)="hoveredId = null"
+        (click)="select(mode)">
+
+        <span class="mode-card__icon">
+          @switch (mode.id) {
+            @case ('classic') {
+              <!-- Controller pixel art — body white for contrast on red badge -->
+              <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="40" height="26">
+                <rect x="1" y="2" width="18" height="9" fill="#FFFEF0"/>
+                <rect x="0" y="4" width="3" height="5" fill="#FFFEF0"/>
+                <rect x="17" y="4" width="3" height="5" fill="#FFFEF0"/>
+                <rect x="4" y="4" width="2" height="5" fill="#181008"/>
+                <rect x="3" y="6" width="4" height="2" fill="#181008"/>
+                <rect x="14" y="4" width="3" height="3" fill="#F8C020"/>
+                <rect x="11" y="6" width="3" height="3" fill="#3858F0"/>
+                <rect x="14" y="7" width="3" height="2" fill="#18A018"/>
+                <rect x="8" y="5" width="2" height="2" fill="#181008" opacity="0.4"/>
+                <rect x="11" y="5" width="2" height="2" fill="#181008" opacity="0.4"/>
+              </svg>
+            }
+            @case ('speed') {
+              <!-- Lightning bolt pixel art — dark fill for contrast on gold badge -->
+              <svg viewBox="0 0 10 18" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="24" height="40">
+                <rect x="6" y="0"  width="4" height="2" fill="#181008"/>
+                <rect x="4" y="2"  width="4" height="2" fill="#181008"/>
+                <rect x="3" y="4"  width="4" height="2" fill="#181008"/>
+                <rect x="1" y="6"  width="8" height="2" fill="#181008"/>
+                <rect x="3" y="8"  width="5" height="2" fill="#181008"/>
+                <rect x="2" y="10" width="4" height="2" fill="#181008"/>
+                <rect x="1" y="12" width="4" height="2" fill="#181008"/>
+                <rect x="1" y="14" width="3" height="2" fill="#181008"/>
+                <rect x="2" y="16" width="2" height="2" fill="#181008"/>
+              </svg>
+            }
+            @case ('survival') {
+              <!-- Skull pixel art -->
+              <svg viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="36" height="40">
+                <rect x="2"  y="0"  width="12" height="2"  fill="#FFFEF0"/>
+                <rect x="1"  y="2"  width="14" height="8"  fill="#FFFEF0"/>
+                <rect x="0"  y="3"  width="16" height="6"  fill="#FFFEF0"/>
+                <rect x="3"  y="4"  width="4"  height="3"  fill="#181008"/>
+                <rect x="9"  y="4"  width="4"  height="3"  fill="#181008"/>
+                <rect x="6"  y="6"  width="4"  height="2"  fill="#FFFEF0"/>
+                <rect x="2"  y="10" width="12" height="5"  fill="#FFFEF0"/>
+                <rect x="1"  y="11" width="14" height="3"  fill="#FFFEF0"/>
+                <rect x="4"  y="13" width="3"  height="3"  fill="#181008"/>
+                <rect x="9"  y="13" width="3"  height="3"  fill="#181008"/>
+              </svg>
+            }
+            @case ('hardcore') {
+              <!-- Flame pixel art -->
+              <svg viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="30" height="42">
+                <rect x="3"  y="0"  width="4"  height="4"  fill="#FFFEF0"/>
+                <rect x="2"  y="2"  width="6"  height="6"  fill="#FFFEF0"/>
+                <rect x="2"  y="6"  width="10" height="4"  fill="#F8C020"/>
+                <rect x="0"  y="8"  width="14" height="5"  fill="#F8C020"/>
+                <rect x="1"  y="11" width="12" height="5"  fill="#E83020"/>
+                <rect x="2"  y="14" width="10" height="4"  fill="#E83020"/>
+                <rect x="3"  y="16" width="8"  height="2"  fill="#C82018"/>
+                <rect x="5"  y="17" width="4"  height="3"  fill="#C82018"/>
+              </svg>
+            }
+            @case ('practice') {
+              <!-- Open book pixel art — white left page for contrast on green badge -->
+              <svg viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="44" height="36">
+                <rect x="0"  y="1"  width="9"  height="14" fill="#FFFEF0"/>
+                <rect x="0"  y="1"  width="2"  height="14" fill="#D8D0B8"/>
+                <rect x="11" y="1"  width="9"  height="14" fill="#FFFEF0"/>
+                <rect x="18" y="1"  width="2"  height="14" fill="#D8D0B8"/>
+                <rect x="9"  y="0"  width="2"  height="16" fill="#181008"/>
+                <rect x="3"  y="4"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+                <rect x="3"  y="7"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+                <rect x="3"  y="10" width="4"  height="1"  fill="#181008" opacity="0.35"/>
+                <rect x="12" y="4"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+                <rect x="12" y="7"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+                <rect x="12" y="10" width="4"  height="1"  fill="#181008" opacity="0.35"/>
+              </svg>
+            }
+          }
+        </span>
+
+        <span class="mode-card__label">{{ mode.label }}</span>
+        <span class="mode-card__desc">{{ mode.description }}</span>
+      </button>
+    }
+  </div>
+
+  <button class="mode-select__back" (click)="goBack()">◀ VOLTAR</button>
+</div>

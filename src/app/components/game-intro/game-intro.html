@@ -1,0 +1,192 @@
+<div class="game-intro" [style.--mode-color]="modeColor()">
+  <div class="scanlines"></div>
+
+  <!-- MODE HERO -->
+  <div class="intro-hero">
+    <div class="intro-hero__icon">
+      @switch (mode().id) {
+        @case ('classic') {
+          <svg viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="48" height="32">
+            <rect x="1" y="2" width="18" height="9" fill="#FFFEF0"/>
+            <rect x="0" y="4" width="3" height="5" fill="#FFFEF0"/>
+            <rect x="17" y="4" width="3" height="5" fill="#FFFEF0"/>
+            <rect x="4" y="4" width="2" height="5" fill="#181008"/>
+            <rect x="3" y="6" width="4" height="2" fill="#181008"/>
+            <rect x="14" y="4" width="3" height="3" fill="#F8C020"/>
+            <rect x="11" y="6" width="3" height="3" fill="#3858F0"/>
+            <rect x="14" y="7" width="3" height="2" fill="#18A018"/>
+            <rect x="8" y="5" width="2" height="2" fill="#181008" opacity="0.4"/>
+            <rect x="11" y="5" width="2" height="2" fill="#181008" opacity="0.4"/>
+          </svg>
+        }
+        @case ('speed') {
+          <svg viewBox="0 0 10 18" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="28" height="48">
+            <rect x="6" y="0"  width="4" height="2" fill="#181008"/>
+            <rect x="4" y="2"  width="4" height="2" fill="#181008"/>
+            <rect x="3" y="4"  width="4" height="2" fill="#181008"/>
+            <rect x="1" y="6"  width="8" height="2" fill="#181008"/>
+            <rect x="3" y="8"  width="5" height="2" fill="#181008"/>
+            <rect x="2" y="10" width="4" height="2" fill="#181008"/>
+            <rect x="1" y="12" width="4" height="2" fill="#181008"/>
+            <rect x="1" y="14" width="3" height="2" fill="#181008"/>
+            <rect x="2" y="16" width="2" height="2" fill="#181008"/>
+          </svg>
+        }
+        @case ('survival') {
+          <svg viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="40" height="48">
+            <rect x="2"  y="0"  width="12" height="2"  fill="#FFFEF0"/>
+            <rect x="1"  y="2"  width="14" height="8"  fill="#FFFEF0"/>
+            <rect x="0"  y="3"  width="16" height="6"  fill="#FFFEF0"/>
+            <rect x="3"  y="4"  width="4"  height="3"  fill="#181008"/>
+            <rect x="9"  y="4"  width="4"  height="3"  fill="#181008"/>
+            <rect x="6"  y="6"  width="4"  height="2"  fill="#FFFEF0"/>
+            <rect x="2"  y="10" width="12" height="5"  fill="#FFFEF0"/>
+            <rect x="1"  y="11" width="14" height="3"  fill="#FFFEF0"/>
+            <rect x="4"  y="13" width="3"  height="3"  fill="#181008"/>
+            <rect x="9"  y="13" width="3"  height="3"  fill="#181008"/>
+          </svg>
+        }
+        @case ('hardcore') {
+          <svg viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="36" height="48">
+            <rect x="3"  y="0"  width="4"  height="4"  fill="#FFFEF0"/>
+            <rect x="2"  y="2"  width="6"  height="6"  fill="#FFFEF0"/>
+            <rect x="2"  y="6"  width="10" height="4"  fill="#F8C020"/>
+            <rect x="0"  y="8"  width="14" height="5"  fill="#F8C020"/>
+            <rect x="1"  y="11" width="12" height="5"  fill="#E83020"/>
+            <rect x="2"  y="14" width="10" height="4"  fill="#E83020"/>
+            <rect x="3"  y="16" width="8"  height="2"  fill="#C82018"/>
+            <rect x="5"  y="17" width="4"  height="3"  fill="#C82018"/>
+          </svg>
+        }
+        @case ('practice') {
+          <svg viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" width="52" height="40">
+            <rect x="0"  y="1"  width="9"  height="14" fill="#FFFEF0"/>
+            <rect x="0"  y="1"  width="2"  height="14" fill="#D8D0B8"/>
+            <rect x="11" y="1"  width="9"  height="14" fill="#FFFEF0"/>
+            <rect x="18" y="1"  width="2"  height="14" fill="#D8D0B8"/>
+            <rect x="9"  y="0"  width="2"  height="16" fill="#181008"/>
+            <rect x="3"  y="4"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+            <rect x="3"  y="7"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+            <rect x="3"  y="10" width="4"  height="1"  fill="#181008" opacity="0.35"/>
+            <rect x="12" y="4"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+            <rect x="12" y="7"  width="5"  height="1"  fill="#181008" opacity="0.35"/>
+            <rect x="12" y="10" width="4"  height="1"  fill="#181008" opacity="0.35"/>
+          </svg>
+        }
+      }
+    </div>
+    <div class="intro-hero__info">
+      <span class="intro-hero__eyebrow">MODO SELECIONADO</span>
+      <h1 class="intro-hero__title">{{ mode().label }}</h1>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="intro-body">
+
+    <!-- RULES -->
+    <section class="intro-card">
+      <h2 class="intro-card__title">REGRAS</h2>
+      <ul class="rules-list">
+        @for (rule of rules(); track $index) {
+          <li class="rule-item" [class.rule-item--warn]="rule.warn">
+            <span class="rule-item__sym">{{ rule.symbol }}</span>
+            <span class="rule-item__text">{{ rule.text }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- SCORING -->
+    <section class="intro-card">
+      <h2 class="intro-card__title">PONTUAÇÃO</h2>
+      <div class="score-table">
+        <div class="score-row">
+          <span class="score-row__label">XP BASE</span>
+          <span class="score-row__val">10–40 XP</span>
+          <span class="score-row__note">por pergunta, conforme dificuldade</span>
+        </div>
+        @if (mode().timerEnabled) {
+          <div class="score-row score-row--accent">
+            <span class="score-row__label">BÔNUS TEMPO</span>
+            <span class="score-row__val">×0.5→×1</span>
+            <span class="score-row__note">mais rápido = mais XP (dobra no instantâneo)</span>
+          </div>
+          <div class="timer-vis">
+            <span class="timer-vis__label">{{ mode().questionTime }}s (mín)</span>
+            <div class="timer-vis__bar">
+              <div class="timer-vis__fill"></div>
+            </div>
+            <span class="timer-vis__label">0s (máx)</span>
+          </div>
+          <p class="intro-note">⚠ Cada pergunta pode ter seu próprio tempo — observe o contador no topo.</p>
+        }
+        @if (mode().comboEnabled) {
+          <div class="score-row score-row--combo">
+            <span class="score-row__label">COMBO</span>
+            <span class="score-row__val">×2/×3/×5</span>
+            <span class="score-row__note">sequência de acertos sem errar</span>
+          </div>
+          <div class="combo-pips">
+            <span class="combo-pip">3🔥 →×2</span>
+            <span class="combo-pip">5🔥 →×3</span>
+            <span class="combo-pip">8🔥 →×5</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- FEEDBACK PREVIEW -->
+    <section class="intro-card">
+      <h2 class="intro-card__title">FEEDBACK</h2>
+      <p class="intro-card__sub">Após cada resposta um card aparece brevemente:</p>
+      <div class="fp-row">
+        <div class="fp fp--correct">
+          <span class="fp__icon">★</span>
+          <span class="fp__label">ACERTO!</span>
+          <span class="fp__note">+XP ganho</span>
+        </div>
+        <div class="fp fp--wrong">
+          <span class="fp__icon">✗</span>
+          <span class="fp__label">ERROU</span>
+          @if (mode().showExplanation) {
+            <span class="fp__note">+ dica</span>
+          } @else {
+            <span class="fp__note">-1 vida</span>
+          }
+        </div>
+        @if (mode().timerEnabled) {
+          <div class="fp fp--timeout">
+            <span class="fp__icon">!!</span>
+            <span class="fp__label">TEMPO</span>
+            <span class="fp__note">-1 vida</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- HUD INDICATORS -->
+    <section class="intro-card intro-card--row">
+      <div class="hud-stat">
+        <span class="hud-stat__label">NÍVEL</span>
+        <div class="hud-stat__bar">
+          <div class="hud-stat__fill" style="width:60%"></div>
+        </div>
+        <span class="hud-stat__note">500 XP = novo nível</span>
+      </div>
+      <div class="hud-stat__divider"></div>
+      <div class="hud-stat">
+        <span class="hud-stat__label">ACERTOS %</span>
+        <span class="hud-stat__value">75%</span>
+        <span class="hud-stat__note">respostas certas ÷ total respondido</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="intro-actions">
+    <button class="intro-btn intro-btn--start" (click)="startGame.emit()">▶ COMEÇAR</button>
+    <button class="intro-btn intro-btn--back" (click)="back.emit()">◀ VOLTAR</button>
+  </div>
+</div>

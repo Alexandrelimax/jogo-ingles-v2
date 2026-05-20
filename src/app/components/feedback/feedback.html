@@ -1,0 +1,17 @@
+@if (gs.feedbackState()) {
+  <div class="feedback-overlay" [class]="gs.feedbackState()!">
+    <div class="feedback-overlay__content">
+      <span class="feedback-overlay__icon">{{ icon }}</span>
+      <span class="feedback-overlay__label">{{ label }}</span>
+      @if (gs.feedbackState() === 'correct' && gs.streakMilestone()) {
+        <span class="feedback-overlay__streak-msg">{{ gs.streakMilestone() }}</span>
+      }
+      @if (gs.feedbackState() === 'correct' && gs.multiplier() > 1) {
+        <span class="feedback-overlay__combo">COMBO {{ gs.multiplier() }}x</span>
+      }
+      @if (gs.explanation()) {
+        <p class="feedback-overlay__explanation">{{ gs.explanation() }}</p>
+      }
+    </div>
+  </div>
+}

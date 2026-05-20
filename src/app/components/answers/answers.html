@@ -1,0 +1,13 @@
+<div class="answers">
+  @for (option of options(); track option) {
+    <button
+      class="answer-btn"
+      [class]="getClass(option)"
+      [disabled]="locked()"
+      (click)="select(option)">
+      <span class="answer-btn__bracket">[</span>
+      <span class="answer-btn__text">{{ option }}</span>
+      <span class="answer-btn__bracket">]</span>
+    </button>
+  }
+</div>
