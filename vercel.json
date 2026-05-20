@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/english-quest/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
