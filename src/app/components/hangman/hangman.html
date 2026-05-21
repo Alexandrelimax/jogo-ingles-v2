@@ -1,0 +1,167 @@
+<div class="hangman">
+
+  <!-- HUD -->
+  <header class="hm-hud">
+    <div class="hm-hud__stat">
+      <span class="hm-hud__label">PONTOS</span>
+      <span class="hm-hud__value">{{ hs.score() }}</span>
+    </div>
+    <div class="hm-hud__divider"></div>
+    <div class="hm-hud__stat">
+      <span class="hm-hud__label">SEQUÊNCIA</span>
+      <span class="hm-hud__value">{{ hs.streak() }}🔥</span>
+    </div>
+    <div class="hm-hud__divider"></div>
+    <div class="hm-hud__stat">
+      <span class="hm-hud__label">ACERTOS</span>
+      <span class="hm-hud__value">{{ hs.wordsWon() }}<span class="hm-hud__total">/{{ hs.wordsPlayed() }}</span></span>
+    </div>
+    <button class="hm-hud__quit" (click)="quit.emit()">✕ SAIR</button>
+  </header>
+
+  @if (hs.currentWord(); as word) {
+    <!-- PLAY AREA -->
+    <div class="hm-play">
+
+      <!-- GALLOWS PANEL -->
+      <div class="hm-gallows-panel">
+        <svg class="hm-gallows-svg" viewBox="0 0 72 90" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Base -->
+          <rect x="4"  y="82" width="44" height="5" fill="var(--dark)"/>
+          <!-- Pole -->
+          <rect x="14" y="6"  width="5"  height="76" fill="var(--dark)"/>
+          <!-- Beam -->
+          <rect x="14" y="6"  width="32" height="5" fill="var(--dark)"/>
+          <!-- Rope -->
+          <rect x="41" y="11" width="3"  height="10" fill="var(--dark)"/>
+
+          @if (hs.wrongCount() >= 1) {
+            <!-- Head -->
+            <rect x="36" y="21" width="13" height="13" fill="var(--dark)"/>
+            <rect x="34" y="23" width="17" height="9"  fill="var(--dark)"/>
+            <!-- Eye whites -->
+            <rect x="37" y="24" width="4"  height="4"  fill="var(--bg-card)"/>
+            <rect x="44" y="24" width="4"  height="4"  fill="var(--bg-card)"/>
+            <!-- Pupils -->
+            <rect x="38" y="25" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="45" y="25" width="2"  height="2"  fill="var(--dark)"/>
+          }
+          @if (hs.wrongCount() >= 2) {
+            <!-- Body -->
+            <rect x="40" y="34" width="5"  height="14" fill="var(--dark)"/>
+          }
+          @if (hs.wrongCount() >= 3) {
+            <!-- Left arm -->
+            <rect x="29" y="36" width="11" height="3"  fill="var(--dark)"/>
+            <rect x="26" y="39" width="5"  height="3"  fill="var(--dark)"/>
+          }
+          @if (hs.wrongCount() >= 4) {
+            <!-- Right arm -->
+            <rect x="45" y="36" width="11" height="3"  fill="var(--dark)"/>
+            <rect x="54" y="39" width="5"  height="3"  fill="var(--dark)"/>
+          }
+          @if (hs.wrongCount() >= 5) {
+            <!-- Left leg -->
+            <rect x="38" y="48" width="4"  height="12" fill="var(--dark)"/>
+            <rect x="32" y="58" width="8"  height="3"  fill="var(--dark)"/>
+          }
+          @if (hs.wrongCount() >= 6) {
+            <!-- Right leg -->
+            <rect x="43" y="48" width="4"  height="12" fill="var(--dark)"/>
+            <rect x="45" y="58" width="8"  height="3"  fill="var(--dark)"/>
+            <!-- X eyes on death -->
+            <rect x="37" y="24" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="39" y="26" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="37" y="28" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="44" y="24" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="46" y="26" width="2"  height="2"  fill="var(--dark)"/>
+            <rect x="44" y="28" width="2"  height="2"  fill="var(--dark)"/>
+          }
+        </svg>
+
+        <!-- Erros counter -->
+        <span class="hm-err-count">{{ hs.wrongCount() }}/{{ maxWrong }}</span>
+      </div>
+
+      <!-- WORD PANEL -->
+      <div class="hm-word-panel">
+
+        <!-- Meta badges -->
+        <div class="hm-meta">
+          <span class="hm-badge hm-badge--cat">{{ word.category }}</span>
+          <span class="hm-badge" [attr.data-diff]="word.difficulty">
+            {{ word.difficulty === 'easy' ? 'FÁCIL' : word.difficulty === 'medium' ? 'MÉDIO' : 'DIFÍCIL' }}
+          </span>
+        </div>
+
+        <!-- Word tiles -->
+        <div class="hm-tiles">
+          @for (char of hs.displayWord(); track $index) {
+            <div class="hm-tile" [class.hm-tile--revealed]="char !== '_'" [class.hm-tile--blank]="char === '_'">
+              <span class="hm-tile__letter">{{ char === '_' ? '' : char }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Hint -->
+        <p class="hm-hint">
+          <span class="hm-hint__tag">DICA</span>
+          {{ word.hint }}
+        </p>
+
+        <!-- Wrong letters — below hint, inside word panel -->
+        @if (hs.wrongLetters().length) {
+          <div class="hm-wrong-area">
+            <span class="hm-wrong-area__label">ERROS:</span>
+            @for (l of hs.wrongLetters(); track l) {
+              <span class="hm-wrong-chip">{{ l }}</span>
+            }
+          </div>
+        }
+
+      </div>
+    </div>
+
+    <!-- QWERTY KEYBOARD -->
+    @if (!hs.isOver()) {
+      <div class="hm-keyboard">
+        @for (row of keyboardRows; track $index; let ri = $index) {
+          <div class="hm-key-row" [attr.data-row]="ri">
+            @for (letter of row; track letter) {
+              <button
+                class="hm-key"
+                [attr.data-state]="letterState()(letter)"
+                [disabled]="hs.guessedLetters().has(letter)"
+                (click)="guess(letter)">
+                {{ letter }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <!-- RESULT OVERLAY -->
+    @if (hs.isOver()) {
+      <div class="hm-result" [class.hm-result--won]="hs.isWon()" [class.hm-result--lost]="hs.isLost()">
+        <div class="hm-result__card">
+          <span class="hm-result__icon">{{ hs.isWon() ? '★' : '✗' }}</span>
+          <span class="hm-result__title">{{ hs.isWon() ? 'ACERTOU!' : 'PERDEU...' }}</span>
+          @if (hs.isWon()) {
+            <span class="hm-result__xp">+{{ hs.xpEarned() }} XP</span>
+          } @else {
+            <span class="hm-result__reveal">A palavra era</span>
+            <span class="hm-result__word">{{ word.word }}</span>
+          }
+          <button class="hm-result__btn" (click)="next()">▶ PRÓXIMA</button>
+        </div>
+      </div>
+    }
+
+  } @else {
+    <div class="hm-loading">
+      <span>CARREGANDO</span>
+      <span class="hm-loading__dots">...</span>
+    </div>
+  }
+</div>
