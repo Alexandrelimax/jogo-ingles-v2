@@ -26,7 +26,11 @@
     </div>
   </div>
 
-  <app-feedback />
+  @if (waitingForTap) {
+    <div class="game__tap-gate" (click)="onTapToContinue()"></div>
+  }
+
+  <app-feedback [showTapHint]="waitingForTap" />
 
   <button class="game__quit-btn" (click)="quit()">✕ SAIR</button>
 </div>

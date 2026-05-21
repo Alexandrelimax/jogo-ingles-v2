@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-hud',
@@ -9,6 +10,7 @@ import { GameStateService } from '../../services/game-state.service';
 })
 export class Hud {
   readonly gs = inject(GameStateService);
+  readonly quiz = inject(QuizService);
 
   get displayMaxLives(): number {
     const lives = this.gs.currentMode()?.lives ?? 5;

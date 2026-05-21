@@ -38,6 +38,10 @@ export class QuizService {
     return picked;
   }
 
+  get totalQuestions(): number {
+    return this.allQuestions.length;
+  }
+
   reset(): void {
     this.recentIds = [];
   }

@@ -103,6 +103,11 @@
   }
 }
 
+.stat-total {
+  font-size: 1.3rem;
+  opacity: .45;
+}
+
 .leaderboard {
   &__title {
     font-family: var(--font-pixel);
@@ -131,8 +136,11 @@
 
     &.current {
       border-color: var(--yellow);
-      background: rgba(248,192,32,.15);
+      background: rgba(248,192,32,.22);
       box-shadow: 3px 3px 0 var(--yellow);
+
+      .pos  { color: var(--dark); }
+      .meta { color: var(--dark); }
     }
 
     .pos   { font-family: var(--font-pixel); font-size: .45rem; color: var(--muted); width: 1.8rem; }

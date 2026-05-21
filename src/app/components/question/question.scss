@@ -36,12 +36,37 @@
 }
 
 .difficulty-badge {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
   font-family: var(--font-hud);
   font-size: 1.2rem;
   letter-spacing: -.05em;
 
-  &[data-level='easy']   { color: var(--green); }
-  &[data-level='medium'] { color: var(--yellow); }
-  &[data-level='hard']   { color: var(--orange); }
-  &[data-level='expert'] { color: var(--red); }
+  &__label {
+    font-family: var(--font-pixel);
+    font-size: .36rem;
+    letter-spacing: .07em;
+    padding: .18rem .45rem;
+    border-radius: 2px;
+    border: 2px solid var(--dark);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  &[data-level='easy'] {
+    color: var(--green);
+    .difficulty-badge__label { background: var(--green); color: #FFFEF0; }
+  }
+  &[data-level='medium'] {
+    color: var(--yellow);
+    .difficulty-badge__label { background: var(--yellow); color: var(--dark); }
+  }
+  &[data-level='hard'] {
+    color: var(--orange);
+    .difficulty-badge__label { background: var(--orange); color: #FFFEF0; }
+  }
+  &[data-level='expert'] {
+    color: var(--red);
+    .difficulty-badge__label { background: var(--red); color: #FFFEF0; }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { GameStateService } from '../../services/game-state.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { GameStateService } from '../../services/game-state.service';
 })
 export class Feedback {
   readonly gs = inject(GameStateService);
+  readonly showTapHint = input(false);
 
   get icon(): string {
     switch (this.gs.feedbackState()) {

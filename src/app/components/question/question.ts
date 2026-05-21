@@ -15,4 +15,9 @@ export class Question {
     const map: Record<string, number> = { easy: 1, medium: 2, hard: 3, expert: 4 };
     return Array.from({ length: map[this.question().difficulty] ?? 1 });
   });
+
+  readonly difficultyLabel = computed(() => {
+    const map: Record<string, string> = { easy: 'FÁCIL', medium: 'MÉDIO', hard: 'DIFÍCIL', expert: 'EXPERT' };
+    return map[this.question().difficulty] ?? '';
+  });
 }

@@ -12,6 +12,9 @@
       @if (gs.explanation()) {
         <p class="feedback-overlay__explanation">{{ gs.explanation() }}</p>
       }
+      @if (showTapHint()) {
+        <span class="feedback-overlay__tap-hint">▼ TOQUE PARA CONTINUAR ▼</span>
+      }
     </div>
   </div>
 }

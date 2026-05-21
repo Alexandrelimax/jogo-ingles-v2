@@ -56,6 +56,15 @@
     animation: coin-spin .6s ease-in-out infinite;
   }
 
+  &__tap-hint {
+    font-family: var(--font-pixel);
+    font-size: .32rem;
+    letter-spacing: .1em;
+    opacity: .75;
+    margin-top: .3rem;
+    animation: blink .7s step-start infinite;
+  }
+
   &.correct {
     .feedback-overlay__content {
       background: var(--green);

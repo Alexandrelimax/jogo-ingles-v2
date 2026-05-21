@@ -13,8 +13,8 @@
       <span class="stat-card__value neon-magenta">{{ gs.level() }}</span>
     </div>
     <div class="stat-card">
-      <span class="stat-card__label">ACCURACY</span>
-      <span class="stat-card__value neon-yellow">{{ gs.accuracy() }}%</span>
+      <span class="stat-card__label">ACERTOS</span>
+      <span class="stat-card__value neon-yellow">{{ gs.correctAnswered() }}<span class="stat-total">/{{ quiz.totalQuestions }}</span></span>
     </div>
     <div class="stat-card">
       <span class="stat-card__label">BEST STREAK</span>
@@ -30,7 +30,7 @@
           <li class="leaderboard__entry" [class.current]="$index + 1 === rank">
             <span class="pos">#{{ $index + 1 }}</span>
             <span class="score neon-cyan">{{ entry.score }}</span>
-            <span class="meta">LVL {{ entry.level }} · {{ entry.accuracy }}% acc · {{ entry.date }}</span>
+            <span class="meta">LVL {{ entry.level }} · {{ entry.accuracy }}/{{ quiz.totalQuestions }} acertos · {{ entry.date }}</span>
           </li>
         }
       </ol>
