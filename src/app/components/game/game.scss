@@ -82,6 +82,7 @@
   position: fixed;
   top: 80px;
   left: 50%;
+  transform: translateX(-50%);
   z-index: 200;
   font-family: var(--font-pixel);
   font-size: clamp(.5rem, 1.8vw, .72rem);

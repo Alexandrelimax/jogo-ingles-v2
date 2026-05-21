@@ -7,6 +7,8 @@ export const BASE_XP = 100;
 
 @Injectable({ providedIn: 'root' })
 export class GameStateService {
+  private levelUpTimer: ReturnType<typeof setTimeout> | null = null;
+
   readonly currentMode = signal<GameModeConfig | null>(null);
 
   readonly lives = signal(5);
@@ -76,7 +78,8 @@ export class GameStateService {
     if (newLevel > this.level()) {
       this.level.set(newLevel);
       this.isLevelUp.set(true);
-      setTimeout(() => this.isLevelUp.set(false), 2500);
+      if (this.levelUpTimer) clearTimeout(this.levelUpTimer);
+      this.levelUpTimer = setTimeout(() => this.isLevelUp.set(false), 2500);
     }
     this.xp.set(newXp);
   }
@@ -85,7 +88,7 @@ export class GameStateService {
     this.streak.set(0);
     this.totalAnswered.update(t => t + 1);
     const mode = this.currentMode();
-    if (!mode || mode.lives < 999) {
+    if (mode && mode.lives < 999) {
       this.lives.update(l => l - 1);
       if (this.lives() <= 0) {
         this.isGameOver.set(true);
@@ -98,6 +101,10 @@ export class GameStateService {
   }
 
   reset(config: GameModeConfig): void {
+    if (this.levelUpTimer) {
+      clearTimeout(this.levelUpTimer);
+      this.levelUpTimer = null;
+    }
     this.currentMode.set(config);
     this.lives.set(config.lives);
     this.score.set(0);

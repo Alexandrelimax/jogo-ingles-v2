@@ -29,7 +29,7 @@ export interface Question {
 export interface HighScore {
   score: number;
   level: number;
-  accuracy: number;
+  correctCount: number;
   streak: number;
   date: string;
   mode?: string;

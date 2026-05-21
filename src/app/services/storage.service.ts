@@ -5,6 +5,8 @@ const STORAGE_KEY = 'english-quest-highscores';
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
+  lastRank = 0;
+
   getHighScores(): HighScore[] {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -19,6 +21,7 @@ export class StorageService {
     scores.push(entry);
     scores.sort((a, b) => b.score - a.score);
     const top5 = scores.slice(0, 5);
+    this.lastRank = top5.findIndex(h => h.score === entry.score && h.date === entry.date) + 1;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(top5));
     return top5;
   }

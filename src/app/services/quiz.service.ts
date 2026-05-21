@@ -20,7 +20,7 @@ export class QuizService {
     this.isLoaded.set(true);
   }
 
-  getNextQuestion(category?: QuestionCategory, difficulty?: DifficultyLevel): Question {
+  getNextQuestion(category?: QuestionCategory, difficulty?: DifficultyLevel): Question | undefined {
     let pool = this.allQuestions;
 
     if (category) pool = pool.filter(q => q.category === category);

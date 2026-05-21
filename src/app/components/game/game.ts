@@ -48,7 +48,7 @@ export class Game implements OnInit, OnDestroy {
     this.gs.selectedAnswer.set(null);
     this.gs.feedbackState.set(null);
     this.gs.explanation.set(null);
-    this.currentQuestion = this.quiz.getNextQuestion();
+    this.currentQuestion = this.quiz.getNextQuestion() ?? null;
     this.gs.currentQuestion.set(this.currentQuestion);
     this.questionIndex++;
     this.startTimer();
@@ -59,7 +59,10 @@ export class Game implements OnInit, OnDestroy {
     if (!mode?.timerEnabled) return;
 
     this.clearTimer();
-    const questionTime = mode.questionTime;
+    const questionTime = Math.min(
+      this.currentQuestion?.timeLimit ?? mode.questionTime,
+      mode.questionTime
+    );
     this.gs.timeRemaining.set(questionTime);
 
     this.timerRef = setInterval(() => {
@@ -130,7 +133,7 @@ export class Game implements OnInit, OnDestroy {
       this.storage.saveHighScore({
         score: this.gs.score(),
         level: this.gs.level(),
-        accuracy: this.gs.correctAnswered(),
+        correctCount: this.gs.correctAnswered(),
         streak: this.gs.streak(),
         date: new Date().toLocaleDateString('pt-BR'),
         mode: this.gs.currentMode()?.id
@@ -139,10 +142,18 @@ export class Game implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.gs.feedbackState() === 'correct') {
-      setTimeout(() => this.nextQuestion(), 1000);
+    const mode = this.gs.currentMode();
+    const state = this.gs.feedbackState();
+
+    if (state === 'correct') {
+      const delay = mode?.showExplanation ? 2200 : 1000;
+      setTimeout(() => this.nextQuestion(), delay);
     } else {
-      this.waitingForTap = true;
+      if (mode?.showExplanation) {
+        this.waitingForTap = true;
+      } else {
+        setTimeout(() => this.nextQuestion(), 1000);
+      }
     }
   }
 }
