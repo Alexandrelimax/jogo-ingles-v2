@@ -36,4 +36,4 @@ export interface HighScore {
 }
 
 export type FeedbackState = 'correct' | 'wrong' | 'timeout' | null;
-export type AppScreen = 'home' | 'mode-select' | 'game-intro' | 'game' | 'gameover';
+export type AppScreen = 'home' | 'mode-select' | 'game-intro' | 'game' | 'gameover' | 'hangman';

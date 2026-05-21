@@ -6,12 +6,13 @@ import { ModeSelect } from './components/mode-select/mode-select';
 import { GameIntro } from './components/game-intro/game-intro';
 import { Game } from './components/game/game';
 import { GameOver } from './components/game-over/game-over';
+import { Hangman } from './components/hangman/hangman';
 import { GameStateService } from './services/game-state.service';
 import { QuizService } from './services/quiz.service';
 
 @Component({
   selector: 'app-root',
-  imports: [Home, ModeSelect, GameIntro, Game, GameOver],
+  imports: [Home, ModeSelect, GameIntro, Game, GameOver, Hangman],
   template: `
     @switch (screen()) {
       @case ('home') {
@@ -32,6 +33,9 @@ import { QuizService } from './services/quiz.service';
       @case ('gameover') {
         <app-game-over (restart)="onRestart()" />
       }
+      @case ('hangman') {
+        <app-hangman (quit)="onBack()" />
+      }
     }
   `,
   styleUrl: './app.scss'
@@ -51,7 +55,7 @@ export class App {
 
   onModeSelected(config: GameModeConfig): void {
     this.pendingMode.set(config);
-    this.screen.set('game-intro');
+    this.screen.set(config.kind === 'hangman' ? 'hangman' : 'game-intro');
   }
 
   onBeginGame(): void {

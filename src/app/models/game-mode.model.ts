@@ -9,6 +9,7 @@ export interface GameModeConfig {
   endless: boolean;
   showExplanation: boolean;
   comboEnabled: boolean;
+  kind?: 'quiz' | 'hangman';
 }
 
 export const GAME_MODES: GameModeConfig[] = [
@@ -70,6 +71,19 @@ export const GAME_MODES: GameModeConfig[] = [
     questionTime: 0,
     endless: false,
     showExplanation: true,
+    comboEnabled: false,
+  },
+  {
+    id: 'hangman',
+    label: 'FORCA',
+    description: 'Adivinhe a palavra letra por letra • 6 erros permitidos',
+    icon: '🪢',
+    kind: 'hangman',
+    lives: 6,
+    timerEnabled: false,
+    questionTime: 0,
+    endless: true,
+    showExplanation: false,
     comboEnabled: false,
   },
 ];
