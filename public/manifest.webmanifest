@@ -1,0 +1,25 @@
+{
+  "name": "English Quest",
+  "short_name": "English Quest",
+  "description": "Treine seu inglês com quizzes e mini-jogos no estilo pixel-art",
+  "theme_color": "#6898F0",
+  "background_color": "#6898F0",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
