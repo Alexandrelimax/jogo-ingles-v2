@@ -42,7 +42,11 @@ export class Hangman implements OnInit {
 
   ngOnInit(): void {
     this.hs.reset();
-    this.hs.loadWords();
+    if (this.hs.isLoaded()) {
+      this.loadNext();
+    } else {
+      this.hs.loadWords();
+    }
   }
 
   private loadNext(): void {

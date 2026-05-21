@@ -30,7 +30,7 @@
           <li class="leaderboard__entry" [class.current]="$index + 1 === rank">
             <span class="pos">#{{ $index + 1 }}</span>
             <span class="score neon-cyan">{{ entry.score }}</span>
-            <span class="meta">LVL {{ entry.level }} · {{ entry.accuracy }}/{{ quiz.totalQuestions }} acertos · {{ entry.date }}</span>
+            <span class="meta">LVL {{ entry.level }} · {{ entry.correctCount }}/{{ quiz.totalQuestions }} acertos · {{ entry.date }}</span>
           </li>
         }
       </ol>

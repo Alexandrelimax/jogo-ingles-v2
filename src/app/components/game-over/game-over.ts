@@ -22,7 +22,7 @@ export class GameOver implements OnInit {
 
   ngOnInit(): void {
     this.highScores = this.storage.getHighScores();
-    this.rank = this.highScores.findIndex(h => h.score === this.gs.score()) + 1;
+    this.rank = this.storage.lastRank;
   }
 
   onRestart(): void {

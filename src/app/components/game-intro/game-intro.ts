@@ -1,5 +1,6 @@
 import { Component, input, output, computed } from '@angular/core';
 import { GameModeConfig } from '../../models/game-mode.model';
+import { ModeIcon } from '../mode-icon/mode-icon';
 
 export interface RuleItem {
   symbol: string;
@@ -9,7 +10,7 @@ export interface RuleItem {
 
 @Component({
   selector: 'app-game-intro',
-  imports: [],
+  imports: [ModeIcon],
   templateUrl: './game-intro.html',
   styleUrl: './game-intro.scss'
 })

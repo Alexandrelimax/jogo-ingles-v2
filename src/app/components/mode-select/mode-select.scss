@@ -95,7 +95,7 @@ $mode-colors: (
   box-shadow: 5px 5px 0 var(--dark);
   transition: transform .12s, box-shadow .12s;
 
-  &:hover, &.hovered {
+  &:hover {
     transform: translateY(-4px) translateX(-2px);
     box-shadow: 8px 8px 0 var(--dark);
   }
@@ -112,7 +112,7 @@ $mode-colors: (
       .mode-card__label { color: $color; }
       .mode-card__icon  { background: $color; box-shadow: 3px 3px 0 rgba(0,0,0,.35); }
 
-      &:hover, &.hovered {
+      &:hover {
         box-shadow: 8px 8px 0 $color;
         .mode-card__desc { color: var(--dark); }
       }
