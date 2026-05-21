@@ -1,11 +1,11 @@
 // ─── Layout shell ────────────────────────────────────────────────────────────
 .hangman {
-  min-height: 100dvh;
+  height: 100dvh;
   background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: .75rem .75rem 1rem;
+  padding: .75rem .75rem 5.5rem;
   gap: .75rem;
   position: relative;
   overflow-x: hidden;
@@ -95,6 +95,7 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  flex: 1;
 
   @media (max-width: 560px) {
     flex-direction: column;
@@ -208,9 +209,20 @@
     color: #FFFEF0;
   }
 
-  &[data-diff='easy']   { background: var(--green);  color: #FFFEF0; }
-  &[data-diff='medium'] { background: var(--yellow); color: var(--dark); }
-  &[data-diff='hard']   { background: var(--red);    color: #FFFEF0; }
+  &[data-diff='easy'] {
+    background: var(--green);
+    color: #FFFEF0;
+  }
+
+  &[data-diff='medium'] {
+    background: var(--yellow);
+    color: var(--dark);
+  }
+
+  &[data-diff='hard'] {
+    background: var(--red);
+    color: #FFFEF0;
+  }
 }
 
 // ─── Word tiles (Scrabble-style) ──────────────────────────────────────────────
@@ -239,7 +251,7 @@
   transition: transform .15s, background .15s;
 
   &--blank {
-    background: rgba(255,254,240,.55);
+    background: rgba(255, 254, 240, .55);
     box-shadow: 2px 2px 0 var(--dark);
   }
 
@@ -258,8 +270,15 @@
 }
 
 @keyframes tile-pop {
-  from { transform: scale(.5) translateY(4px); opacity: 0; }
-  to   { transform: scale(1)  translateY(0);   opacity: 1; }
+  from {
+    transform: scale(.5) translateY(4px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 // Hint line
@@ -293,7 +312,7 @@
 .hm-keyboard {
   width: 100%;
   max-width: 780px;
-  margin-top: .5rem;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: .3rem;
@@ -310,8 +329,13 @@
   gap: .3rem;
 
   // Indent rows 2 and 3 like a real keyboard
-  &[data-row='1'] { padding: 0 calc(var(--key-size, 2.2rem) * .5 + .15rem); }
-  &[data-row='2'] { padding: 0 calc(var(--key-size, 2.2rem) * 1.2 + .3rem); }
+  &[data-row='1'] {
+    padding: 0 calc(var(--key-size, 2.2rem) * .5 + .15rem);
+  }
+
+  &[data-row='2'] {
+    padding: 0 calc(var(--key-size, 2.2rem) * 1.2 + .3rem);
+  }
 }
 
 // Key sizing: fills viewport width for 10 keys in row 1
@@ -370,7 +394,9 @@ $key-gap: .3rem;
     transform: translateY(2px);
   }
 
-  &:disabled { cursor: default; }
+  &:disabled {
+    cursor: default;
+  }
 }
 
 // ─── Result overlay ───────────────────────────────────────────────────────────
@@ -383,8 +409,13 @@ $key-gap: .3rem;
   z-index: 200;
   animation: fade-in .2s ease both;
 
-  &--won  { background: rgba(24, 160, 24, .88); }
-  &--lost { background: rgba(232, 48, 32, .88); }
+  &--won {
+    background: rgba(24, 160, 24, .88);
+  }
+
+  &--lost {
+    background: rgba(232, 48, 32, .88);
+  }
 
   &__card {
     display: flex;
@@ -444,7 +475,7 @@ $key-gap: .3rem;
     background: var(--dark);
     color: var(--bg-card);
     border: 2px solid var(--dark);
-    box-shadow: 4px 4px 0 rgba(0,0,0,.3);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .3);
     padding: .6rem 1.4rem;
     cursor: pointer;
     transition: transform .08s, box-shadow .08s;
@@ -452,26 +483,38 @@ $key-gap: .3rem;
 
     &:active {
       transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 rgba(0,0,0,.3);
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
     }
 
     @media (hover: hover) {
       &:hover {
         transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 rgba(0,0,0,.3);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
       }
     }
   }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes result-pop {
-  from { transform: scale(.75) translateY(20px); opacity: 0; }
-  to   { transform: scale(1)   translateY(0);    opacity: 1; }
+  from {
+    transform: scale(.75) translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 // ─── Loading state ────────────────────────────────────────────────────────────
