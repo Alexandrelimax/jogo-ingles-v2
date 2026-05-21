@@ -26,56 +26,100 @@
       <!-- GALLOWS PANEL -->
       <div class="hm-gallows-panel">
         <svg class="hm-gallows-svg" viewBox="0 0 72 90" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-          <!-- Base -->
-          <rect x="4"  y="82" width="44" height="5" fill="var(--dark)"/>
+          <!-- Scaffold base -->
+          <rect x="4"  y="82" width="44" height="5"  fill="#181008"/>
           <!-- Pole -->
-          <rect x="14" y="6"  width="5"  height="76" fill="var(--dark)"/>
+          <rect x="14" y="6"  width="5"  height="76" fill="#181008"/>
           <!-- Beam -->
-          <rect x="14" y="6"  width="32" height="5" fill="var(--dark)"/>
+          <rect x="14" y="6"  width="32" height="5"  fill="#181008"/>
           <!-- Rope -->
-          <rect x="41" y="11" width="3"  height="10" fill="var(--dark)"/>
+          <rect x="41" y="11" width="3"  height="10" fill="#181008"/>
 
           @if (hs.wrongCount() >= 1) {
-            <!-- Head -->
-            <rect x="36" y="21" width="13" height="13" fill="var(--dark)"/>
-            <rect x="34" y="23" width="17" height="9"  fill="var(--dark)"/>
-            <!-- Eye whites -->
-            <rect x="37" y="24" width="4"  height="4"  fill="var(--bg-card)"/>
-            <rect x="44" y="24" width="4"  height="4"  fill="var(--bg-card)"/>
-            <!-- Pupils -->
-            <rect x="38" y="25" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="45" y="25" width="2"  height="2"  fill="var(--dark)"/>
+            <!-- ── Professor: Mortarboard ── -->
+            <!-- Board (flat top) -->
+            <rect x="31" y="21" width="24" height="3"  fill="#181008"/>
+            <!-- Cap body -->
+            <rect x="35" y="24" width="16" height="7"  fill="#181008"/>
+            <!-- Tassel cord -->
+            <rect x="54" y="22" width="2"  height="9"  fill="#181008"/>
+            <!-- Gold tassel -->
+            <rect x="52" y="30" width="5"  height="5"  fill="#F8C020"/>
+
+            <!-- ── Face ── -->
+            <!-- White hair sides -->
+            <rect x="35" y="31" width="3"  height="4"  fill="#FFFEF0"/>
+            <rect x="48" y="31" width="3"  height="4"  fill="#FFFEF0"/>
+            <!-- Face (yellow) -->
+            <rect x="36" y="31" width="14" height="11" fill="#F8C020"/>
+            <rect x="34" y="34" width="18" height="5"  fill="#F8C020"/>
+            <!-- Square glasses left -->
+            <rect x="35" y="34" width="7"  height="5"  fill="#181008"/>
+            <rect x="36" y="35" width="5"  height="3"  fill="#F8C020"/>
+            <!-- Square glasses right -->
+            <rect x="44" y="34" width="7"  height="5"  fill="#181008"/>
+            <rect x="45" y="35" width="5"  height="3"  fill="#F8C020"/>
+            <!-- Bridge -->
+            <rect x="42" y="36" width="2"  height="1"  fill="#181008"/>
+            <!-- Mouth -->
+            <rect x="40" y="39" width="6"  height="2"  fill="#181008"/>
           }
+
           @if (hs.wrongCount() >= 2) {
-            <!-- Body -->
-            <rect x="40" y="34" width="5"  height="14" fill="var(--dark)"/>
+            <!-- ── Academic gown ── -->
+            <!-- Neck -->
+            <rect x="41" y="42" width="4"  height="3"  fill="#F8C020"/>
+            <!-- Gown upper body -->
+            <rect x="35" y="45" width="16" height="6"  fill="#181008"/>
+            <!-- Gown wide lower -->
+            <rect x="33" y="51" width="20" height="17" fill="#181008"/>
+            <!-- White collar left -->
+            <rect x="35" y="45" width="5"  height="5"  fill="#FFFEF0"/>
+            <!-- White collar right -->
+            <rect x="46" y="45" width="5"  height="5"  fill="#FFFEF0"/>
+            <!-- Center opening (yellow skin) -->
+            <rect x="41" y="45" width="4"  height="4"  fill="#F8C020"/>
           }
+
           @if (hs.wrongCount() >= 3) {
-            <!-- Left arm -->
-            <rect x="29" y="36" width="11" height="3"  fill="var(--dark)"/>
-            <rect x="26" y="39" width="5"  height="3"  fill="var(--dark)"/>
+            <!-- ── Left arm + red book ── -->
+            <rect x="27" y="55" width="8"  height="3"  fill="#181008"/>
+            <!-- Red book -->
+            <rect x="19" y="52" width="10" height="13" fill="#E83020"/>
+            <!-- Book pages -->
+            <rect x="20" y="53" width="7"  height="11" fill="#FFFEF0"/>
+            <!-- Text lines on book -->
+            <rect x="21" y="56" width="5"  height="1"  fill="#D0C8B8"/>
+            <rect x="21" y="58" width="5"  height="1"  fill="#D0C8B8"/>
+            <rect x="21" y="60" width="4"  height="1"  fill="#D0C8B8"/>
           }
+
           @if (hs.wrongCount() >= 4) {
-            <!-- Right arm -->
-            <rect x="45" y="36" width="11" height="3"  fill="var(--dark)"/>
-            <rect x="54" y="39" width="5"  height="3"  fill="var(--dark)"/>
+            <!-- ── Right arm + pointing hand ── -->
+            <rect x="53" y="55" width="8"  height="3"  fill="#181008"/>
+            <!-- Hand -->
+            <rect x="59" y="56" width="5"  height="6"  fill="#F8C020"/>
+            <!-- Pointing finger -->
+            <rect x="60" y="53" width="3"  height="4"  fill="#F8C020"/>
           }
+
           @if (hs.wrongCount() >= 5) {
-            <!-- Left leg -->
-            <rect x="38" y="48" width="4"  height="12" fill="var(--dark)"/>
-            <rect x="32" y="58" width="8"  height="3"  fill="var(--dark)"/>
+            <!-- ── Left leg — robe ── -->
+            <rect x="37" y="68" width="6"  height="12" fill="#181008"/>
+            <!-- Shoe -->
+            <rect x="33" y="79" width="10" height="3"  fill="#181008"/>
           }
+
           @if (hs.wrongCount() >= 6) {
-            <!-- Right leg -->
-            <rect x="43" y="48" width="4"  height="12" fill="var(--dark)"/>
-            <rect x="45" y="58" width="8"  height="3"  fill="var(--dark)"/>
-            <!-- X eyes on death -->
-            <rect x="37" y="24" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="39" y="26" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="37" y="28" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="44" y="24" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="46" y="26" width="2"  height="2"  fill="var(--dark)"/>
-            <rect x="44" y="28" width="2"  height="2"  fill="var(--dark)"/>
+            <!-- ── Right leg — robe ── -->
+            <rect x="44" y="68" width="6"  height="12" fill="#181008"/>
+            <!-- Shoe -->
+            <rect x="43" y="79" width="10" height="3"  fill="#181008"/>
+            <!-- X eyes (white cross over glasses lenses) -->
+            <rect x="35" y="36" width="7"  height="1"  fill="#FFFEF0"/>
+            <rect x="38" y="34" width="1"  height="5"  fill="#FFFEF0"/>
+            <rect x="44" y="36" width="7"  height="1"  fill="#FFFEF0"/>
+            <rect x="47" y="34" width="1"  height="5"  fill="#FFFEF0"/>
           }
         </svg>
 

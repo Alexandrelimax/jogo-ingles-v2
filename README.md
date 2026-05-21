@@ -15,7 +15,7 @@ Acesse [http://localhost:4200](http://localhost:4200) no navegador.
 
 English Quest é um jogo de perguntas de múltipla escolha de gramática inglesa com mecânicas de progressão:
 
-- **5 modos de jogo** — cada modo tem regras diferentes de vidas, timer, explicações e combo
+- **6 modos de jogo** — cinco modos de quiz e um modo de forca (hangman) com banco de palavras próprio
 - **Multiplicador de streak** — acertos consecutivos aumentam o XP ganho (1× → 2× → 3× → 5×)
 - **Sistema de XP e níveis** — XP acumula e sobe de nível a cada 500 pontos
 - **Mensagens de sequência** — NICE! / AWESOME! / INCREDIBLE! / UNSTOPPABLE! / LEGENDARY! / GOD MODE!
@@ -24,13 +24,14 @@ English Quest é um jogo de perguntas de múltipla escolha de gramática inglesa
 
 ### Modos de jogo
 
-| Modo | Vidas | Timer | Explicações | Combo |
-|------|-------|-------|-------------|-------|
-| Classic | 5 | 15s | ✓ | ✓ |
-| Speed | 5 | 5s | ✗ | ✓ |
-| Survival | 1 | — | ✗ | ✓ (infinito) |
-| Hardcore | 1 | 8s | ✗ | ✗ |
-| Practice | ∞ | — | ✓ | ✗ |
+| Modo | Engine | Vidas | Timer | Explicações | Combo |
+|------|--------|-------|-------|-------------|-------|
+| Classic | Quiz | 5 | 15s | ✓ | ✓ |
+| Speed | Quiz | 5 | 5s | ✗ | ✓ |
+| Survival | Quiz | 1 | — | ✗ | ✓ (infinito) |
+| Hardcore | Quiz | 1 | 8s | ✗ | ✗ |
+| Practice | Quiz | ∞ | — | ✓ | ✗ |
+| Forca | Hangman | 6 erros | — | — | — |
 
 ## Fluxo de telas
 
@@ -41,13 +42,16 @@ stateDiagram-v2
     home --> mode_select : ▶ Iniciar
 
     mode_select --> home       : ◀ Voltar
-    mode_select --> game_intro : seleciona modo
+    mode_select --> game_intro : seleciona modo quiz
+    mode_select --> hangman    : seleciona Forca
 
     game_intro --> mode_select : ◀ Voltar
     game_intro --> game        : ▶ COMEÇAR
 
     game --> gameover : vidas esgotadas
     game --> home     : ✕ SAIR
+
+    hangman --> home  : ✕ SAIR
 
     gameover --> home : ▶ JOGAR NOVAMENTE
 
@@ -56,35 +60,41 @@ stateDiagram-v2
     game_intro : 📋 Game Intro
     game       : ⚔️ Game
     gameover   : 💀 Game Over
+    hangman    : 🪢 Forca
 ```
 
 ## Estrutura do projeto
 
 ```
 src/app/
-├── app.ts                    # Componente raiz (controla tela: home/mode-select/game-intro/game/gameover)
+├── app.ts                    # Componente raiz (controla tela: home/mode-select/game-intro/game/gameover/hangman)
 ├── models/
 │   ├── question.model.ts     # Tipos: Question, HighScore, FeedbackState, AppScreen, etc.
-│   └── game-mode.model.ts    # GameModeConfig + GAME_MODES (5 modos)
+│   ├── game-mode.model.ts    # GameModeConfig + GAME_MODES (6 modos; kind: 'quiz'|'hangman')
+│   └── hangman.model.ts      # HangmanWord
 ├── services/
 │   ├── game-state.service.ts # Estado do jogo via Signals (score, lives, streak, xp...)
 │   ├── quiz.service.ts       # Carrega e embaralha questões do JSON
+│   ├── hangman.service.ts    # Estado do Forca via Signals (word, guesses, score, streak...)
 │   └── storage.service.ts    # Persistência de high scores no localStorage
 └── components/
     ├── home/                 # Tela inicial
-    ├── mode-select/          # Seleção de modo de jogo (5 cards coloridos)
+    ├── mode-select/          # Seleção de modo de jogo (6 cards coloridos)
     ├── game-intro/           # Tutorial pré-jogo: regras do modo, pontuação, preview de feedback
     ├── game/                 # Loop principal: carrega questão → timer → feedback → próxima
     ├── hud/                  # HUD: score, streak, nível, vidas, timer, XP bar
     ├── question/             # Exibe o texto e metadados da questão
     ├── answers/              # Botões de múltipla escolha
     ├── feedback/             # Feedback pós-resposta: ★ / ✗ / !! + XP ganho
-    └── game-over/            # Tela final: estatísticas + top 5 high scores
+    ├── game-over/            # Tela final: estatísticas + top 5 high scores
+    └── hangman/              # Forca: teclado QWERTY, SVG professor pixel-art, tiles de letras
 ```
 
 ## Dados das questões
 
 As questões ficam em [src/assets/data/questions.json](src/assets/data/questions.json). O banco atual tem **100 questões** (39 easy · 38 medium · 18 hard · 5 expert).
+
+As palavras do Forca ficam em [src/assets/data/words.json](src/assets/data/words.json). O banco atual tem **70 palavras** em 7 categorias temáticas (Animals, Food, Nature, Technology, Sports, Adjectives & Concepts, Places & Buildings), cada uma com `id`, `word` (maiúsculas), `category`, `hint` e `difficulty`.
 
 Estrutura de cada questão:
 
